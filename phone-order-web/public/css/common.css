@@ -1,0 +1,26 @@
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.textcenter {
+    text-align: center;
+    display: inline;
+}
+
+.leftside {
+    height: 100%;
+    width: 100%;
+    margin: 40px;
+    padding-right: 60px;
+}
+
+.rightside {
+    height: 100%;
+    width: 100%;
+    margin: 40px;
+    padding-right: 80px;
+}

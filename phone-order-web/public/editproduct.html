@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="1800">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Products</title>
+
+    <link href="css/common.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-storage.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html">SMART Phone Shop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="home.html">View Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="editproduct.html">Edit Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="orders.html">Orders</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col">
+            <div class="leftside">
+                <h2>Add Products</h2>
+                <form id="addproductform">
+                    <div class="mb-3">
+                        <label>Upload Image</label><br>
+                        <img style="width: 120px; height: 120px; border: 1;" id="addimage" placeholder="Upload Image"
+                            accept="image/x-png,image/gif,image/jpeg" src="./images/noimage.png" required>
+                            <label id="uploadprogress"></label><br>
+                    </div>
+                    <div class="mb-3">
+                        <label>Product Name</label>
+                        <input type="text" class="form-control" id="addname" placeholder="Product Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Price</label>
+                        <input type="text" class="form-control" id="addprice" placeholder="Price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Quantity</label>
+                        <input type="text" class="form-control" id="addquantity" placeholder="Quantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="adddescription" placeholder="Description" required>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary" onclick="addData();">Add Product</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="rightside">
+                <h2>Update Products</h2>
+                <form id="updateproductform">
+                    <div class="mb-3">
+                        <label>Product Image</label><br>
+                        <img style="width: 120px; height: 120px; border: 1;" id="updateimage" placeholder="Upload Image"
+                            accept="image/x-png,image/gif,image/jpeg" src="./images/noimage.png" required><br>
+                    </div>
+                    <div class="mb-3">
+                        <label>Product ID</label>
+                        <input type="text" class="form-control" id="updateid" placeholder="Product ID" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Product Name</label>
+                        <input type="text" class="form-control" id="updatename" placeholder="Product Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Price</label>
+                        <input type="text" class="form-control" id="updateprice" placeholder="Price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Quantity</label>
+                        <input type="text" class="form-control" id="updatequantity" placeholder="Quantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="updatedescription" placeholder="Description"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary" onclick="updateData();">Update Product</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="center">
+        <h3 class="text-center">Products List</h3>
+        <table class="table table-bordered table-responsive-sm" id="tableProducts">
+            <thead>
+                <tr>
+                    <th scope="col" id="prodid">Product ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col" style="max-width: 200px;">Description</th>
+                </tr>
+            </thead>
+            <tbody id="tableproductsbody">
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript" src="js/firebasedata.js"></script>
+    <script type="text/javascript" src="js/getproducts.js"></script>
+    <script type="text/javascript" src="js/addproducts.js"></script>
+    <script type="text/javascript" src="js/updateproducts.js"></script>
+
+</body>
+
+</html>
